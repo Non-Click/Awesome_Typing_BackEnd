@@ -15,7 +15,8 @@ public class SecurityConfig {
     private final String[] allowUrl = {
             "/swagger-ui/**",
             "/swagger-resources/**",
-            "/v3/api-docs/**"
+            "/v3/api-docs/**",
+            "/api/**"
     };
 
     @Bean

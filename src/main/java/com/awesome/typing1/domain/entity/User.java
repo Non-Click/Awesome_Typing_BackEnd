@@ -1,9 +1,10 @@
 package com.awesome.typing1.domain.entity;
 
-import com.awesome.typing1.domain.entity.enums.UserStatus;
 import com.awesome.typing1.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -15,25 +16,30 @@ public class User extends BaseEntity {
     // 유저 아이디
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private Long id;
 
     // 네이버 아이디
-    @Column(nullable = false, length = 30)
-    private String naver_id;
+    @Column(name = "naver_id", nullable = false, length = 30)
+    private String naverId;
 
     // 유저 이름
     @Column(nullable = false, length = 20)
     private String name;
 
     // 유저 상태
-    @Enumerated(EnumType.STRING)
-    private UserStatus user_status;
+    @Column(nullable = false)
+    private boolean status;
 
-    public void setUserStatus(UserStatus userStatus) {
-        this.user_status = userStatus;
+    // 탈퇴한 날짜
+    @Column(name = "deleted_date")
+    private LocalDate deletedDate;
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public void updateName(String name) {
         this.name = name;
     }
+
 }
