@@ -5,6 +5,8 @@ import com.awesome.typing1.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Builder
@@ -15,7 +17,7 @@ public class Custom extends BaseEntity {
     // 커스텀 텍스트 아이디
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long custom_id;
+    private Long id;
 
     // 유저 아이디
     @ManyToOne
@@ -24,24 +26,40 @@ public class Custom extends BaseEntity {
 
     // 제목
     @Column(nullable = false)
-    private String custom_title;
+    private String title;
 
     // 본문
     @Column(nullable = false)
-    private String custom_content;
+    private String content;
 
     // 출처(저자)
     @Column(nullable = false)
-    private String custom_source;
+    private String source;
+
+    // 삭제 여부
+    @Column(name = "is_deleted", nullable = false)
+    private boolean isDeleted;
+
+    // 삭제된 날짜
+    @Column(name = "deleted_date")
+    private LocalDate deletedDate;
 
     public void setUser(User user) {
         this.user = user;
     }
 
-    public void update(CustomRequestDTO.UpdateCustomDTO updateCustomDTO) {
-        this.custom_title = updateCustomDTO.getCustomTitle();
-        this.custom_content = updateCustomDTO.getCustomContent();
-        this.custom_source = updateCustomDTO.getCustomSource();
+    public void setIsDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    public void setDeletedDate(LocalDate deletedDate) {
+        this.deletedDate = deletedDate;
+    }
+
+    public void update(String title, String content, String source) {
+        this.title = title;
+        this.content = content;
+        this.source = source;
     }
 
 }

@@ -15,22 +15,22 @@ public class Text extends BaseEntity {
     // 텍스트 아이디
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long text_id;
+    private Long id;
 
     // 언어
     @Enumerated(EnumType.STRING)
-    private TextLanguage text_language;
+    private TextLanguage textLanguage;
 
     // 제목
     @Column(nullable = false)
-    private String text_title;
+    private String title;
 
     // 본문
     @Column(nullable = false)
-    private String text_content;
+    private String content;
 
     // 출처(저자)
     @Column(nullable = false)
-    private String text_source;
+    private String source;
 
 }

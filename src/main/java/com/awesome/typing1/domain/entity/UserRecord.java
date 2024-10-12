@@ -1,6 +1,5 @@
 package com.awesome.typing1.domain.entity;
 
-import com.awesome.typing1.domain.entity.enums.TextType;
 import com.awesome.typing1.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -15,7 +14,7 @@ public class UserRecord extends BaseEntity {
     // 기록 아이디
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long record_id;
+    private Long id;
 
     // 유저 아이디
     @ManyToOne
@@ -23,8 +22,9 @@ public class UserRecord extends BaseEntity {
     private User user;
 
     // 텍스트 유형
-    @Enumerated(EnumType.STRING)
-    private TextType text_type;
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private TextType textType;
 
     // 평균 wpm
     @Column(nullable = false)
