@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class CustomResponseDTO {
 
@@ -27,8 +26,10 @@ public class CustomResponseDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
+    // 특정 사용자의 커스텀 텍스트 하나 미리보기
     public static class CustomPreviewDTO {
-        private Long userId; // 데이터 확인 목적으로 추가, but 실제로는 필요없을 수 있기 때문에 제거할 수도
+        private Long id; // 커스텀 텍스트 아이디
+        private Long userId; // id와 userId는 데이터 확인 목적으로 추가, but 실제로는 필요없을 수 있기 때문에 제거할 수도
         private String title; // 제목
         private String source; // 출처(저자)
         private LocalDateTime createdAt; // 텍스트 작성일
@@ -39,7 +40,32 @@ public class CustomResponseDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
+    // 특정 사용자의 커스텀 텍스트 리스트 미리보기
     public static class CustomPreviewListDTO {
-        private PageResponse<CustomPreviewDTO> customPreviewDTOS;
+        private PageResponse<CustomPreviewDTO> customPreviewDTOs;
     }
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    // 특정 사용자의 커스텀 텍스트 하나 자세히 보기
+    public static class CustomViewDTO {
+        private Long id; // 커스텀 텍스트 아이디
+        private Long userId; // id와 userId는 데이터 확인 목적으로 추가, but 실제로는 필요없을 수 있기 때문에 제거할 수도
+        private String title; // 제목
+        private String content; // 내용
+        private String source; // 출처(저자)
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    // 특정 사용자의 커스텀 텍스트 리스트 자세히 보기
+    public static class CustomViewListDTO {
+        private PageResponse<CustomViewDTO> customViewDTOs;
+    }
+
+
 }

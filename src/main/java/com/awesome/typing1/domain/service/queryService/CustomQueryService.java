@@ -6,4 +6,6 @@ public interface CustomQueryService {
 
     CustomResponseDTO.CustomPreviewListDTO previewCustoms(Long userId, int page);
 
+    CustomResponseDTO.CustomViewListDTO viewCustoms(Long userId, int page);
+
 }
