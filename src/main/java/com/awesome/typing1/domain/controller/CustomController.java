@@ -20,7 +20,7 @@ public class CustomController {
     private final CustomQueryService customQueryService;
 
     @PostMapping("/users/{userId}/customs/create")
-    @Operation(summary = "커스텀 타이핑 텍스트를 생성하는 api")
+    @Operation(summary = "커스텀 텍스트를 생성하는 api")
     public ApiResponse<CustomResponseDTO.CreateCustomResultDTO> createCustom(
             @PathVariable Long userId,
             @RequestBody CustomRequestDTO.CreateCustomDTO createCustomDTO) {
@@ -30,7 +30,7 @@ public class CustomController {
     }
 
     @PutMapping("/customs/{customId}")
-    @Operation(summary = "커스텀 타이핑 텍스트를 업데이트하는 api")
+    @Operation(summary = "커스텀 텍스트를 업데이트하는 api")
     public ApiResponse<String> updateCustom(
             @PathVariable Long customId,
             @RequestBody CustomRequestDTO.UpdateCustomDTO updateCustomDTO) {
@@ -40,20 +40,29 @@ public class CustomController {
     }
 
     @DeleteMapping("/customs/{customId}")
-    @Operation(summary = "커스텀 타이핑 텍스트를 soft 삭제하는 api")
+    @Operation(summary = "커스텀 텍스트를 soft 삭제하는 api")
     public ApiResponse<String> deleteCustom(@PathVariable Long customId) {
 
         customCommandService.deleteCustom(customId);
         return ApiResponse.onSuccess("커스텀 텍스트 삭제에 성공하였습니다.");
     }
 
-    @GetMapping("/users/{userId}/customs")
-    @Operation(summary = "커스텀 타이핑 텍스트 리스트를 가져오는 api")
+    @GetMapping("/users/{userId}/customs/preview")
+    @Operation(summary = "커스텀 텍스트 미리보기 리스트를 가져오는 api")
     public ApiResponse<CustomResponseDTO.CustomPreviewListDTO> previewCustoms(
             @PathVariable Long userId,
             @RequestParam(defaultValue = "0") int page) {
 
         return ApiResponse.onSuccess(customQueryService.previewCustoms(userId, page));
+    }
+
+    @GetMapping("/users/{userId}/customs")
+    @Operation(summary = "커스텀 텍스트 자세히보기 리스트를 가져오는 api")
+    public ApiResponse<CustomResponseDTO.CustomViewListDTO> viewCustoms(
+            @PathVariable Long userId,
+            @RequestParam(defaultValue = "0") int page) {
+
+        return ApiResponse.onSuccess(customQueryService.viewCustoms(userId, page));
     }
 
 }

@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import static com.awesome.typing1.domain.converter.CustomConverter.toCustomPreviewListDTO;
+import static com.awesome.typing1.domain.converter.CustomConverter.toCustomViewListDTO;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +29,7 @@ public class CustomQueryServiceImpl implements CustomQueryService {
     private static final int PAGE_SIZE = 20;
 
     @Override
+    // 특정 사용자의 커스텀 텍스트 리스트 미리보기
     public CustomResponseDTO.CustomPreviewListDTO previewCustoms(Long userId, int page) {
 
         User user = userRepository.findById(userId).orElseThrow(() -> new UserException(UserErrorCode.USER_NOT_FOUND));
@@ -36,5 +38,17 @@ public class CustomQueryServiceImpl implements CustomQueryService {
         Page<Custom> customs = customRepository.findActiveCustomsByUser(user, pageable);
 
         return toCustomPreviewListDTO(customs);
+    }
+
+    @Override
+    // 특정 사용자의 커스텀 텍스트 리스트 자세히 보기
+    public CustomResponseDTO.CustomViewListDTO viewCustoms(Long userId, int page) {
+
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserException(UserErrorCode.USER_NOT_FOUND));
+
+        Pageable pageable = PageRequest.of(page, PAGE_SIZE);
+        Page<Custom> customs = customRepository.findActiveCustomsByUser(user, pageable);
+
+        return toCustomViewListDTO(customs);
     }
 }
